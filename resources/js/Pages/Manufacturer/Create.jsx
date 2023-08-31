@@ -84,7 +84,7 @@ export default function Create(props) {
                         </div>
 
                         <div className={'mb-20'}>
-                            <InputLabel htmlFor="email" value="Email"/>
+                            <InputLabel htmlFor="address" value="Address"/>
 
                             <TextInput
                                 id="address"
