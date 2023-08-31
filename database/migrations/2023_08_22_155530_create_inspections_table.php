@@ -22,6 +22,8 @@ return new class extends Migration
             $table->dateTime('date');
             $table->string('notes', 250)->nullable();
             $table->timestamps();
+            $table->softDeletes();
+
             $table->index('grade');
             $table->index('date');
         });

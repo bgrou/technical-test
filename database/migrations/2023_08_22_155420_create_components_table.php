@@ -21,6 +21,7 @@ return new class extends Migration
             $table->foreignId('manufacturer_id')->constrained();
             $table->string('serial_number', 30)->nullable();
             $table->timestamps();
+            $table->softDeletes();
 
             $table->unique('serial_number');
         });
