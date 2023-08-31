@@ -57,13 +57,13 @@ class ComponentRepository
         return (object)$component->toArray();
     }
 
-    public function delete($id)
+    public function delete($id): void
     {
         $component = $this->component->findOrFail($id);
         $component->delete();
     }
 
-    public function findWithAssociations($id)
+    public function findWithAssociations($id): ?object
     {
         $component = $this->component->with('manufacturer', 'inspections', 'turbine', 'latestInspection')->find($id);
 

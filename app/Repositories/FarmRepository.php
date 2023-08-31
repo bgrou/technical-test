@@ -38,16 +38,14 @@ class FarmRepository
     {
         $farm = $this->farm->find($id);
 
-        if (!$farm) {
-            return null;
-        }
-
-        return (object)$farm->toArray();
+        return $farm ? (object)$farm->toArray() : null;
     }
 
     public function update(UpdateFarmDTO $dto): ?object
     {
-        if (!$farm = $this->farm->find($dto->id)) {
+        $farm = $this->farm->find($dto->id);
+
+        if (!$farm) {
             return null;
         }
 
@@ -68,18 +66,14 @@ class FarmRepository
     {
         $farm = $this->farm->with('turbines')->find($id);
 
-        if (!$farm) {
-            return null;
-        }
-
-        return (object)$farm->toArray();
+        return $farm ? (object)$farm->toArray() : null;
     }
 
     public function getTurbines($id): ?object
     {
         $farm = $this->farm->find($id);
 
-        return $farm ? (object) $farm->turbines->toArray() : null;
+        return $farm ? (object)$farm->turbines->toArray() : null;
     }
 
     public function getAllWithAssociations(): Collection|array
@@ -87,7 +81,7 @@ class FarmRepository
         return $this->farm->with('turbines')->get()->toArray();
     }
 
-    public function getAllWithIdAndName()
+    public function getAllIdsAndNames(): array
     {
         return $this->farm->select('id', 'name')->get()->toArray();
     }

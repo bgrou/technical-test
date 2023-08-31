@@ -36,16 +36,14 @@ class ManufacturerRepository
     {
         $manufacturer = $this->manufacturer->find($id);
 
-        if (!$manufacturer) {
-            return null;
-        }
-
-        return (object) $manufacturer->toArray();
+        return $manufacturer ? (object) $manufacturer->toArray() : null;
     }
 
     public function update(UpdateManufacturerDTO $dto): ?object
     {
-        if (!$manufacturer = $this->manufacturer->find($dto->id)) {
+        $manufacturer = $this->manufacturer->find($dto->id);
+
+        if(!$manufacturer) {
             return null;
         }
 
@@ -56,21 +54,17 @@ class ManufacturerRepository
         return (object) $manufacturer->toArray();
     }
 
-    public function delete($id)
+    public function delete($id): void
     {
         $manufacturer = $this->manufacturer->findOrFail($id);
         $manufacturer->delete();
     }
 
-    public function findWithAssociations($id)
+    public function findWithAssociations($id): ?object
     {
         $manufacturer = $this->manufacturer->with('turbines', 'components')->find($id);
 
-        if (!$manufacturer) {
-            return null;
-        }
-
-        return (object) $manufacturer->toArray();
+        return $manufacturer ? (object) $manufacturer->toArray() : null;
     }
 
     public function getAllIdAndName(): array

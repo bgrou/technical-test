@@ -8,8 +8,10 @@ use App\Helpers\DataTable\DataTableHelper;
 use App\Http\Resources\FarmResource;
 use App\Models\Farm;
 use App\Repositories\FarmRepository;
+use Collection;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\Log;
 
 class FarmService
@@ -25,7 +27,12 @@ class FarmService
         return $this->repository->create($dto);
     }
 
-    public function fetchIndex(Request $request, Farm $farm)
+    public function update(UpdateFarmDTO $dto): ?object
+    {
+        return $this->repository->update($dto);
+    }
+
+    public function fetchIndex(Request $request, Farm $farm): AnonymousResourceCollection
     {
         $allowedFields = ['id', 'name', 'latitude', 'longitude'];
         $farms = DataTableHelper::fetchData($request, $farm, 'id', 'desc', $allowedFields);
@@ -43,39 +50,32 @@ class FarmService
         return $this->repository->findWithAssociations($id);
     }
 
-    /**
-     * @throws Exception
-     */
-    public function update(UpdateFarmDTO $dto): ?object
+    public function getTurbinesLowGradeComponents($farmId): ?array
     {
-        try {
-            return $this->repository->update($dto);
-        } catch (Exception $e) {
-            Log::error('Error updating farm: ' . $e->getMessage());
-            throw new Exception('There was an error updating the farm. Please try again.');
-        }
-    }
-
-    public function getTurbinesLowGradeComponents(object $farm): ?array
-    {
-        $turbines = $this->repository->getTurbines($farm->id);
+        $turbines = $this->repository->getTurbines($farmId);
 
         if (!$turbines) {
             return null;
         }
 
-        return collect($turbines)
+        $filteredTurbines = collect($turbines)
             ->map(function ($turbine) {
                 return $this->turbineService->getComponentsLowGrade($turbine['id']);
             })
-            ->filter(function ($turbine) { //Only return turbines that have low grade components
+            ->filter()
+            ->filter(function ($turbine) {
                 return !empty($turbine['components_low_grade']);
             })
             ->values()
             ->all();
+
+        return [
+            'farm_id' => $farmId,
+            'turbines' => $filteredTurbines
+        ];
     }
 
-    public function getAllWithTurbines(): array
+    public function getAll(): array
     {
         return $this->repository->getAll();
     }

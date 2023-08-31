@@ -19,19 +19,9 @@ class InspectionService
         protected InspectionRepository $repository
     ) {}
 
-    /**
-     * @throws Exception
-     */
     public function create(CreateInspectionDTO $dto)
     {
-        try {
-            return $this->repository->create($dto);
-
-
-        } catch (Exception $e) {
-            Log::error('Error updating inspection: ' . $e->getMessage());
-            throw new Exception('There was an error creating the inspection. Please try again.');
-        }
+        return $this->repository->create($dto);
     }
 
     public function fetchIndex(Request $request, Inspection $inspection): AnonymousResourceCollection
@@ -42,12 +32,9 @@ class InspectionService
         return InspectionResource::collection($inspections);
     }
 
-    /**
-     * @throws Exception
-     */
     public function update(UpdateInspectionDTO $dto): ?object
     {
-            return $this->repository->update($dto);
+        return $this->repository->update($dto);
     }
 
     public function find($id): ?object

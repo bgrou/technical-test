@@ -51,22 +51,11 @@ class ComponentService
 
     public function update(UpdateComponentDTO $dto): ?object
     {
-        try {
-            return $this->repository->update($dto);
-
-        } catch (Exception $e) {
-            Log::error('Error updating inspection: ' . $e->getMessage());
-            throw new Exception('There was an error updating the component. Please try again.');
-        }
+        return $this->repository->update($dto);
     }
 
-    public function delete($id)
+    public function delete($id): void
     {
-        try {
-            $this->repository->delete($id);
-        } catch (Exception $e) {
-            Log::error('Error deleting component: ' . $e->getMessage());
-            throw new Exception('There was an error deleting the component. Please try again.');
-        }
+        $this->repository->delete($id);
     }
 }

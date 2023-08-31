@@ -15,7 +15,7 @@ class TurbineRepository
 
     public function getAll(string $filterField = null, string $filterValue = null): object
     {
-        return (object) $this->turbine
+        return (object)$this->turbine
             ->where(function ($query) use ($filterField, $filterValue) {
                 if ($filterField) {
                     $query->where($filterField, 'like', "%{$filterValue}%");
@@ -46,7 +46,9 @@ class TurbineRepository
 
     public function update(UpdateTurbineDTO $dto): ?object
     {
-        if (!$turbine = $this->turbine->find($dto->id)) {
+        $turbine = $this->turbine->find($dto->id);
+
+        if (!$turbine) {
             return null;
         }
 
@@ -67,25 +69,16 @@ class TurbineRepository
         )
             ->find($id);
 
-        if (!$turbine) {
-            return null;
-        }
-
-        return (object)$turbine->toArray();
+        return $turbine ? (object)$turbine->toArray() : null;
     }
 
-    public function getAllWithIdAndName()
-    {
-        return $this->turbine->select('id', 'name')->get()->toArray();
-    }
-
-    public function delete($id)
+    public function delete($id): void
     {
         $turbine = $this->turbine->findOrFail($id);
         $turbine->delete();
     }
 
-    public function hasComponentOfType($turbineId, $type)
+    public function hasComponentOfType($turbineId, $type): bool
     {
         return Turbine::where('id', $turbineId)
             ->whereHas('components', function ($query) use ($type) {
@@ -96,17 +89,11 @@ class TurbineRepository
     public function getComponentsWithLatestInspection($id): ?object
     {
         $turbine = $this->turbine->with(
-
             'components',
             'components.latestInspection'
-        )
-            ->find($id);
+        )->find($id);
 
-        if (!$turbine) {
-            return null;
-        }
-
-        return (object)$turbine->toArray();
+        return $turbine ? (object)$turbine->toArray() : null;
     }
 
 }

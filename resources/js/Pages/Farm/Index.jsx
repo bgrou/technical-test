@@ -1,5 +1,5 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import {Head} from '@inertiajs/react';
+import {Head, Link} from '@inertiajs/react';
 import DataTable from '@/Components/DataTable';
 import React from 'react';
 
@@ -8,8 +8,12 @@ export default function Index(props) {
     return (<AuthenticatedLayout
         auth={props.auth}
         errors={props.errors}
-        header={<div className={'flex items-center space-x-8'}>
+        header={<div className={'flex flex-row space-x-4'}>
             <h2>Farms</h2>
+            <Link href={'/farm/create'}>
+                <p className={'text-lg text-green-400'}><i
+                    className={'fa fa-plus'}></i> New</p>
+            </Link>
         </div>}
     >
         <Head title="Farms"/>
@@ -21,11 +25,7 @@ export default function Index(props) {
                     <DataTable
                         fetchUrl="/farms/fetch"
                         columns={[
-                            'id',
-                            'name',
-                            'latitude',
-                            'longitude',
-                            ]}
+                            'id', 'name', 'latitude', 'longitude']}
                     ></DataTable>
 
                 </div>

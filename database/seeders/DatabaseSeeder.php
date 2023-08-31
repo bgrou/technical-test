@@ -20,7 +20,8 @@ class DatabaseSeeder extends Seeder
             FarmSeeder::class,
             TurbineSeeder::class,
             ComponentSeeder::class,
-            InspectionSeeder::class
+            InspectionSeeder::class,
+            CurrentWindSeeder::class
         ]);
     }
 }

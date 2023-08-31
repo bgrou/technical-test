@@ -26,12 +26,7 @@ class TurbineService
      */
     public function create(CreateTurbineDTO $dto)
     {
-        try {
-            return $this->repository->create($dto);
-        } catch (Exception $e) {
-            Log::error('Error creating turbine: ' . $e->getMessage());
-            throw new Exception('There was an error creating the turbine. Please try again.');
-        }
+        return $this->repository->create($dto);
     }
 
 
@@ -82,12 +77,7 @@ class TurbineService
      */
     public function update(UpdateTurbineDTO $dto): ?object
     {
-        try {
-            return $this->repository->update($dto);
-        } catch (Exception $e) {
-            Log::error('Error updating turbine: ' . $e->getMessage());
-            throw new Exception('There was an error updating the turbine. Please try again.');
-        }
+        return $this->repository->update($dto);
     }
 
     public function getComponentsLowGrade($id): ?array

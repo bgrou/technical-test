@@ -1,15 +1,20 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import {Head, useForm} from '@inertiajs/react';
-import React from 'react';
+import React, {useState} from 'react';
 import InputLabel from '@/Components/InputLabel';
 import InputError from '@/Components/InputError';
 import SubmitButton from '@/Components/SubmitButton';
 import TextInput from '@/Components/TextInput';
+import ReactMapGl, {Marker} from 'react-map-gl';
+import TurbineSvg from '@/Components/TurbineSvg';
 
 export default function Edit(props) {
     const {data, setData, post, processing, errors} = useForm({
-        name: ""
+        name: "",
+        latitude: "",
+        longitude: "",
     });
+    const [marker, setMarker] = useState([]);
 
     const submit = (e) => {
         e.preventDefault();
@@ -19,6 +24,12 @@ export default function Edit(props) {
     const handleOnChange = (e) => {
         setData(e.target.name, e.target.value);
     };
+
+    function onClickMap(event) {
+        const {lat, lng} = event.lngLat;
+        setMarker({latitude: lat, longitude: lng});
+        setData({...data, longitude: lng, latitude: lat});
+    }
 
     return (<AuthenticatedLayout
         auth={props.auth}
@@ -48,6 +59,32 @@ export default function Edit(props) {
                             />
 
                             <InputError message={errors.name} className="mt-2" />
+                        </div>
+                        <div className={'mt-6'}>
+                            <h3 className={'font-medium text-sm text-gray-300 mb-2'}>Select a
+                                new place for the Farm</h3>
+
+                            <div className={'w-full h-96 mb-20'}>
+                                <ReactMapGl
+                                    mapLib={import('mapbox-gl')}
+                                    mapboxAccessToken={props.mapbox_api_token}
+                                    initialViewState={{
+                                        longitude: 49.5,
+                                        latitude: -4.0000,
+                                        zoom: 3,
+                                    }}
+                                    onClick={onClickMap}
+                                    mapStyle={'mapbox://styles/brunog/cllm8sr3w013701qparz97s1z'}
+                                >
+                                    {!isNaN(marker.latitude) && !isNaN(marker.longitude) &&
+                                        <Marker longitude={marker.longitude}
+                                                latitude={marker.latitude}>
+                                            <i className={'text-red-500 fa fa-dot-circle-o text-2xl'}></i>
+                                        </Marker>}
+                                </ReactMapGl>
+                              <InputError message={errors.latitude} className="mt-2" />
+                              <InputError message={errors.longitude} className="mt-2" />
+                            </div>
                         </div>
                         <SubmitButton
                             onClick={submit}

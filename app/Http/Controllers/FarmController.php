@@ -81,7 +81,7 @@ class FarmController extends Controller
     public function show($id)
     {
         $farm = $this->service->findWithAssociations($id);
-        $turbinesNeedingAttention = $this->service->getTurbinesLowGradeComponents($farm);
+        $turbinesNeedingAttention = $this->service->getTurbinesLowGradeComponents($id);
         return Inertia::render('Farm/Show', [
             'farm' => $farm,
             'turbines_needing_attention' => $turbinesNeedingAttention

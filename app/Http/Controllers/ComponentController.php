@@ -19,6 +19,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
+use Symfony\Component\Translation\Exception\NotFoundResourceException;
 
 class ComponentController extends Controller
 {
@@ -45,6 +46,7 @@ class ComponentController extends Controller
     {
         return $this->service->fetchIndex($request, $component);
     }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -121,11 +123,17 @@ class ComponentController extends Controller
     {
         try {
             $updatedComponent = $this->service->update(UpdateComponentDTO::makeFromRequest($request));
-
+            if (!$updatedComponent) {
+                throw new NotFoundResourceException("Component with not found");
+            }
             return Redirect::route('turbine.show', ['id' => $updatedComponent->turbine_id])
                 ->with('message', 'Component updated successfully!');
         } catch (Exception $e) {
-            return Redirect::back()->with('error', $e->getMessage());
+            Log::error('Error creating component: ' . $e->getMessage());
+            return Redirect::back()->with(
+                'error',
+                'There was an error updating the component. Please try again later.'
+            );
         }
     }
 

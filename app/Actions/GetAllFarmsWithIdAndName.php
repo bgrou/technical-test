@@ -13,6 +13,6 @@ class GetAllFarmsWithIdAndName
 
     public function execute()
     {
-        return $this->repository->getAllWithIdAndName();
+        return $this->repository->getAllIdsAndNames();
     }
 }

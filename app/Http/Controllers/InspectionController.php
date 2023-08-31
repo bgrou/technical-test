@@ -14,6 +14,7 @@ use App\Services\ComponentService;
 use App\Services\InspectionService;
 use App\Services\TurbineService;
 use Exception;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
@@ -24,6 +25,7 @@ use Log;
 
 class InspectionController extends Controller
 {
+    use SoftDeletes;
     public function __construct(
         protected InspectionService $service,
         protected GetAllUsersIdAndName $getAllUsersIdAndName
@@ -76,7 +78,7 @@ class InspectionController extends Controller
             return Redirect::route('inspection.show', ['id' => $createdInspection->id])
                 ->with('message', 'Inspection created successfully!');
         } catch (Exception $e) {
-            return Redirect::back()->with('error', $e->getMessage());
+            return Redirect::back()->with('error', 'There was an error creating the inspection. Please try again.');
         }
     }
 
