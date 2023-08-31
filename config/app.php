@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => env('APP_NAME', 'WiseFlow'),
 
     /*
     |--------------------------------------------------------------------------
@@ -126,15 +126,21 @@ return [
     'cipher' => 'AES-256-CBC',
 
     /*
-    |--------------------------------------------------------------------------
-    | Autoloaded Service Providers
-    |--------------------------------------------------------------------------
-    |
-    | The service providers listed here will be automatically loaded on the
-    | request to your application. Feel free to add your own services to
-    | this array to grant expanded functionality to your applications.
-    |
-    */
+   |--------------------------------------------------------------------------
+   | Api Keys
+   |--------------------------------------------------------------------------
+   */
+    'react_app_mapbox_token' => "pk.eyJ1IjoiYnJ1bm9nIiwiYSI6ImNqcHkydjVpejByejI0M3RkczZmYm9qYjgifQ.zFFshrMqXd48JcH9s6_W5A",
+   /*
+   |--------------------------------------------------------------------------
+   | Autoloaded Service Providers
+   |--------------------------------------------------------------------------
+   |
+   | The service providers listed here will be automatically loaded on the
+   | request to your application. Feel free to add your own services to
+   | this array to grant expanded functionality to your applications.
+   |
+   */
 
     'providers' => [
 
