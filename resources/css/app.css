@@ -1,3 +1,30 @@
+@import "font-awesome/css/font-awesome.css";
+@import "react-datepicker/dist/react-datepicker.css";
+@import 'react-toastify/dist/ReactToastify.css';
+@import 'mapbox-gl/dist/mapbox-gl.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+    .scrollbar::-webkit-scrollbar {
+        width: 20px;
+        height: 20px;
+    }
+
+    .scrollbar::-webkit-scrollbar-track {
+        border-radius: 100vh;
+        background: #2d3855;
+    }
+
+    .scrollbar::-webkit-scrollbar-thumb {
+        background: #162343;
+        border-radius: 100vh;
+        border: 3px solid #2d3855;
+    }
+
+    .scrollbar::-webkit-scrollbar-thumb:hover {
+        background: #ffffff;
+    }
+}
