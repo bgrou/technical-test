@@ -6,6 +6,7 @@ import InputError from '@/Components/InputError';
 import DatePicker from 'react-datepicker';
 import {format} from 'date-fns';
 import SelectInput from '@/Components/SelectInput';
+import SubmitButton from '@/Components/SubmitButton';
 
 export default function Create(props) {
     const [startDate, setStartDate] = useState();
@@ -18,7 +19,6 @@ export default function Create(props) {
         user_id: 1,
         notes: "",
     });
-    console.log(errors);
     const submit = (e) => {
         e.preventDefault();
         post(route('inspection.store'));
@@ -120,13 +120,11 @@ export default function Create(props) {
                             <InputError message={errors.notes}
                                         className="mt-2"/>
                         </div>
-                        <div className={'flex justify-end space-x-4'}>
-                            <button type="submit" onClick={submit}
-                                    className={props.className}
-                                    disabled={processing}>
-                                Submit
-                            </button>
-                        </div>
+                        <SubmitButton
+                            onClick={submit}
+                            className={props.className}
+                            processing={processing}
+                        />
                     </form>
                 </div>
             </div>

@@ -29,7 +29,7 @@ export default function Authenticated({
             toast.error(message);
         }
     };
-    return (<div className="min-h-screen bg-gray-100 dark:bg-primary-dark">
+    return (<div className="min-h-screen bg-gray-100 scrollbar dark:bg-primary-dark">
         <ToastContainer
             position="top-right"
             autoClose={4000}

@@ -4,6 +4,7 @@ import React from 'react';
 import InputLabel from '@/Components/InputLabel';
 import InputError from '@/Components/InputError';
 import TextInput from '@/Components/TextInput';
+import SubmitButton from '@/Components/SubmitButton';
 
 export default function Edit(props) {
 
@@ -12,7 +13,7 @@ export default function Edit(props) {
         manufacturer_id: props.component.manufacturer_id,
         serial_number: props.component.serial_number,
     });
-    console.log(errors);
+
     const submit = (e) => {
         e.preventDefault();
         post(route('component.update'));
@@ -67,13 +68,11 @@ export default function Edit(props) {
                             <InputError message={errors.serial_number}
                                         className="mt-2"/>
                         </div>
-                        <div className={'flex justify-end space-x-4'}>
-                            <button type="submit" onClick={submit}
-                                    className={props.className}
-                                    disabled={processing}>
-                                Submit
-                            </button>
-                        </div>
+                        <SubmitButton
+                            onClick={submit}
+                            className={props.className}
+                            processing={processing}
+                        />
                     </form>
                 </div>
             </div>

@@ -4,6 +4,7 @@ import React from 'react';
 import InputLabel from '@/Components/InputLabel';
 import InputError from '@/Components/InputError';
 import TextInput from '@/Components/TextInput';
+import SubmitButton from '@/Components/SubmitButton';
 
 export default function Create(props) {
 
@@ -11,7 +12,7 @@ export default function Create(props) {
         manufacturer_id: 1,
         type: props.type_required,
         turbine_id: props.turbine_id,
-        serial_number: "",
+        serial_number: '',
     });
 
     const submit = (e) => {
@@ -72,13 +73,11 @@ export default function Create(props) {
                             <InputError message={errors.serial_number}
                                         className="mt-2"/>
                         </div>
-                        <div className={'flex justify-end space-x-4'}>
-                            <button type="submit" onClick={submit}
-                                    className={props.className}
-                                    disabled={processing}>
-                                Submit
-                            </button>
-                        </div>
+                        <SubmitButton
+                            onClick={submit}
+                            className={props.className}
+                            processing={processing}
+                        />
                     </form>
                 </div>
             </div>

@@ -37,7 +37,7 @@ export default function Show(props) {
 
         return dateB - dateA;
     });
-    console.log(props.components_low_grade);
+
     return (<AuthenticatedLayout
         auth={props.auth}
         errors={props.errors}
@@ -56,7 +56,7 @@ export default function Show(props) {
     >
         <Head title={'Turbine #' + props.turbine.id}/>
 
-        <div className="py-6">
+        <div className="py-6 scrollbar">
             <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div className="shadow-sm sm:rounded-lg">
 

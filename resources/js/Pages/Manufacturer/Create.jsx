@@ -24,7 +24,6 @@ export default function Create(props) {
         setData(e.target.name, e.target.value);
     };
 
-    console.log(data);
     return (<AuthenticatedLayout
         auth={props.auth}
         errors={props.errors}
