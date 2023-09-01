@@ -55,17 +55,25 @@ function Sidebar({auth, showingSidebar }) {
                             </Link>
                         </li>
                         <li>
-                            <Link href={route('manufacturer.index')} className="text-gray-700 dark:text-gray-300
+                            <Link href={route('manufacturer.index')} active className="text-gray-700 dark:text-gray-300
                                                                           hover:text-gray-900 dark:hover:text-gray-200 ">
                                 <i className={"fa fa-gears text-m pr-4"}></i>Manufacturers
                             </Link>
                         </li>
                     </ul>
                     <ul className={"space-y-6 py-12"}>
+                        <div className="px-4">
+
+                        </div>
                         <li className={"self-end"}>
                             <Link href={route('profile.edit')} className="text-gray-400 dark:text-gray-100
                                                                       hover:text-gray-900 dark:hover:text-gray-200">
-                                <i className={"fa fa-user text-m pr-5"}></i>Profile
+                                <div
+                                    className="font-medium text-base text-gray-800 dark:text-gray-200">
+                                    {auth.user.name}
+                                </div>
+                                <div
+                                    className="font-medium text-sm text-gray-500">{auth.user.email}</div>
                             </Link>
                         </li>
                         <li>

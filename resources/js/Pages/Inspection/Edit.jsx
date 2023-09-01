@@ -19,6 +19,7 @@ export default function Edit(props) {
         date: parseISO(props.inspection.date),
         user_id: props.inspection.user_id,
         notes: props.inspection.notes,
+        req_maintenance: props.inspection.req_maintenance,
     });
 
     const submit = (e) => {
@@ -105,8 +106,17 @@ export default function Edit(props) {
                             id="notes"
                             name="notes"
                             value={data.notes}
+                            label={'Notes'}
                             onChange={handleOnChange}
                             error={errors.notes}
+                        />
+                        <TextAreaInput
+                            id="req_maintenance"
+                            name="req_maintenance"
+                            value={data.req_maintenance}
+                            label={'Required Maintenance'}
+                            onChange={handleOnChange}
+                            error={errors.req_maintenance}
                         />
                         <SubmitButton
                             onClick={submit}

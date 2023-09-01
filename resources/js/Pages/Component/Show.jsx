@@ -38,7 +38,6 @@ export default function Show(props) {
         props.component.latest_inspection.grade :
         0);
 
-
     return (<AuthenticatedLayout
         auth={props.auth}
         errors={props.errors}
@@ -127,8 +126,15 @@ export default function Show(props) {
                         </div>
                         <div
                             className={'bg-primary-mid px-6 py-4 h-[14rem] sm:col-span-3  rounded-lg shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)] overflow-y-scroll scrollbar'}>
-                            <h3 className={'text-m text-gray-400 font-bold mb-2'}>Inspection
-                                History</h3>
+                            <div className={'flex flex-row space-x-4'}>
+                                <h3 className={'text-m text-gray-400 font-bold mb-2'}>Inspection
+                                    History</h3>
+                                <Link
+                                    href={`/inspection/create/${props.component.id}`}>
+                                    <p className={'text-md font-semibold text-green-400'}><i
+                                        className={'fa fa-plus'}></i> New</p>
+                                </Link>
+                            </div>
                             <div>
                                 <table className={'w-full'}>
                                     <thead

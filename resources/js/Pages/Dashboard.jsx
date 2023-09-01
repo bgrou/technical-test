@@ -5,7 +5,6 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import {Marker, Popup} from 'react-map-gl';
 import TurbineSvg from '@/Components/TurbineSvg';
 import {Link} from '@inertiajs/react';
-import DateConverter from '@/Components/DateConverter';
 
 export default function Dashboard(props) {
   const [selectedFarm, setSelectedFarm] = useState(null);
@@ -16,7 +15,6 @@ export default function Dashboard(props) {
     height: '200px',
     zoom: 3,
   });
-  console.error(props.turbines_needing_attention);
   return (<AuthenticatedLayout
       auth={props.auth}
       errors={props.errors}

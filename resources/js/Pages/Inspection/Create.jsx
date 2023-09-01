@@ -7,6 +7,7 @@ import DatePicker from 'react-datepicker';
 import {format} from 'date-fns';
 import SelectInput from '@/Components/SelectInput';
 import SubmitButton from '@/Components/SubmitButton';
+import TextAreaInput from '@/Components/TextAreaInput';
 
 export default function Create(props) {
     const [startDate, setStartDate] = useState();
@@ -18,6 +19,7 @@ export default function Create(props) {
         date: null,
         user_id: 1,
         notes: "",
+        req_maintenance: ""
     });
     const submit = (e) => {
         e.preventDefault();
@@ -106,20 +108,22 @@ export default function Create(props) {
                             onChange={handleOnChange}
                             error={errors.user_id}
                         />
-                        <div className={'mb-20'}>
-                            <InputLabel htmlFor="notes" value="Notes"/>
-
-                            <textarea
-                                id="notes"
-                                name="notes"
-                                value={data.notes}
-                                className="bg-primary-dark mb-3 h-48 border-0 sm:rounded-lg text-gray-300 mt-1 block w-full"
-                                onChange={handleOnChange}
-                            />
-
-                            <InputError message={errors.notes}
-                                        className="mt-2"/>
-                        </div>
+                        <TextAreaInput
+                            id="notes"
+                            name="notes"
+                            value={data.notes}
+                            label={'Notes'}
+                            onChange={handleOnChange}
+                            error={errors.notes}
+                        />
+                        <TextAreaInput
+                            id="req_maintenance"
+                            name="req_maintenance"
+                            value={data.req_maintenance}
+                            label={'Required Maintenance'}
+                            onChange={handleOnChange}
+                            error={errors.req_maintenance}
+                        />
                         <SubmitButton
                             onClick={submit}
                             className={props.className}

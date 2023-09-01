@@ -104,6 +104,41 @@ export default function Authenticated({
                         Dashboard
                     </ResponsiveNavLink>
                 </div>
+                <div className="pt-2 pb-3 space-y-1">
+                    <ResponsiveNavLink href={route('farm.index')}
+                                       active={route().
+                                           current('farm.index')}>
+                        Farms
+                    </ResponsiveNavLink>
+                </div>
+                <div className="pt-2 pb-3 space-y-1">
+                    <ResponsiveNavLink href={route('turbine.index')}
+                                       active={route().
+                                           current('turbine.index')}>
+                        Turbines
+                    </ResponsiveNavLink>
+                </div>
+                <div className="pt-2 pb-3 space-y-1">
+                    <ResponsiveNavLink href={route('component.index')}
+                                       active={route().
+                                           current('component.index')}>
+                        Components
+                    </ResponsiveNavLink>
+                </div>
+                <div className="pt-2 pb-3 space-y-1">
+                    <ResponsiveNavLink href={route('inspection.index')}
+                                       active={route().
+                                           current('inspection.index')}>
+                        Inspections
+                    </ResponsiveNavLink>
+                </div>
+                <div className="pt-2 pb-3 space-y-1">
+                    <ResponsiveNavLink href={route('manufacturer.index')}
+                                       active={route().
+                                           current('manufacturer.index')}>
+                        Manufacturers
+                    </ResponsiveNavLink>
+                </div>
 
                 <div
                     className="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
