@@ -43,6 +43,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/edit/{id}', [FarmController::class, 'edit'])->name('farm.edit');
         Route::post('/edit', [FarmController::class, 'update'])->name('farm.update');
         Route::post('/create', [FarmController::class, 'store'])->name('farm.store');
+        Route::delete('/delete/{id}', [FarmController::class, 'destroy'])->name('farm.destroy');
 
     });
 
@@ -57,6 +58,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('/edit/', [InspectionController::class, 'update'])->name('inspection.update');
         Route::get('/create/{componentId}', [InspectionController::class, 'create'])->name('inspection.create');
         Route::post('/create/', [InspectionController::class, 'store'])->name('inspection.store');
+        Route::delete('/delete/{id}', [InspectionController::class, 'destroy'])->name('inspection.destroy');
     });
 
     Route::prefix('components')->group(function () {
@@ -86,6 +88,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/{id}', [TurbineController::class, 'show'])->name('turbine.show');
         Route::get('/edit/{id}', [TurbineController::class, 'edit'])->name('turbine.edit');
         Route::post('/edit', [TurbineController::class, 'update'])->name('turbine.update');
+        Route::delete('/delete/{id}', [TurbineController::class, 'destroy'])->name('turbine.destroy');
     });
 
     Route::prefix('manufacturers')->group(function () {
@@ -99,6 +102,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/edit/{id}', [ManufacturerController::class, 'edit'])->name('manufacturer.edit');
         Route::post('/edit', [ManufacturerController::class, 'update'])->name('manufacturer.update');
         Route::post('/create', [ManufacturerController::class, 'store'])->name('manufacturer.store');
+        Route::delete('/delete/{id}', [ManufacturerController::class, 'destroy'])->name('manufacturer.destroy');
     });
 });
 
