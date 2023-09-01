@@ -18,7 +18,8 @@ class Inspection extends Model
         'grade',
         'type',
         'notes',
-        'date'
+        'date',
+        'req_maintenance'
     ];
 
     protected $dates = [

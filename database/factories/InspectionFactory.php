@@ -27,7 +27,8 @@ class InspectionFactory extends Factory
             'grade' => $this->faker->randomElement(ComponentGradeEnum::values()),
             'type' => $this->faker->randomElement(InspectionTypeEnum::values()),
             'date' => $this->faker->dateTime(),
-            'notes' => $this->faker->realText(250)
+            'notes' => $this->faker->realText(250),
+            'req_maintenance' => $this->faker->realText(250),
         ];
     }
 }
