@@ -67,4 +67,58 @@ composer install --ignore-platform-reqs
 ```
 
 ## Your Notes
-This is a place for you to add your notes, plans, thinking and any feedback you have for us of the task, please feel free to include whatever you like here, we'll make sure to read it. 
+
+# 1. Understanding the Task
+## Objective
+The goal is to develop an application that displays wind farms, their turbines and turbine's components. Each component should have a condition grade from 1-5. 
+I've initially assumed the 4 mentioned components, Blade, Generator, Hub and Rotor.
+
+## Key Entities and Thoughts
+### Entities
+- **Wind Farms**: Entities that store multiple turbines.
+- **Turbines**: Entities inside farms. A turbine has multiple components inside.
+- **Components**: Entities that compose a turbine. Each of them has a grade assigned in the last inspection made to the component.
+- **Manufacturers**: Entities that produce the components and assemble the turbines. Not in the task description but I thought it would be a great addition. 
+- **Inspectors**: Entities that make inspections in the components. Also not in the task description.
+
+### Users should be able to...
+- **...list farms, turbines, components, inspections and manufacturers**: Every entity should be listed in a way that it can be sorted and filtered.
+- **...view every farm in a map with their turbines**: It would be awesome to show a map where the farms are marked on. When you zoom in you should see the positioning of every turbine inside it.
+- **...have a dashboard that shows up summarized info**: It's important to show summarized info in the dashboard, for example the turbines that need attention because their components have poor condition and the map with the farms locations.
+- **...easily navigate through the app**: Great UX and UI is important to reduce the cognitive overload. 
+
+### Questions that appeared while planning
+- **Should each type of component have custom fields ?**: For example, should a blade have its length or a rotor its diameter? Depending on the answer, the database schema could change a lot.
+- **Should the inspections be made to a single component or to the entire turbine ?**: In terms of database relationships it's also a major factor.
+
+
+# 2. Planning
+## Branding
+
+### Name 
+The name of the app will be **WindFlow**. "Wind" is self-explanatory and "Flow" is related to how wind interact with turbines and how smooth the data flows in the app.
+
+### Logo
+![WindFlow Logo](![image](https://github.com/bgrou/technical-test/assets/61094081/c640a05c-208c-49cd-8883-de304d0e3a93)
+)
+### Database Design
+As I though before the entities that should exist in this app are **Wind Farms, Turbines, Components, Manufacturers and Inspectors**. 
+After some thinking, I came up with a potential dillema:
+-  Should I create a table for each component type so I can have their singular attributes separated? Should I follow single table inheritance? Or the JSON path for singular attributes(not a good idea)?
+Well, I decided to put custom fields aside so the database design remains simplified. It would be an overkill.
+    
+![Database Diagram](https://github.com/bgrou/technical-test/assets/61094081/0c9fee44-77c2-47f3-af8c-d4eb689b484f)
+
+I decided that inspections should be made to single component so each of the components can have a super detailed and precise inspection. Also decided that the inspectors could actually be the users of the app itself(I thought about creating an inspectors table).
+
+### Backend
+It might sound controversial but I chose to follow a monolith architecture due to its simplicity and ease of development. If it was a production app it tons of users and data we could have to move to a decoupled architecture.
+I decided to use [Inertia.js](https://inertiajs.com) so I can achieve the performance and smooth UX of a SPA while developing in Laravel with a monolith architecture.
+
+I decided to use a Controller->Service->Repository design pattern due to its separation of concerns. Repository might sound overkill and that I added unnecessary complexity, but I prefer to isolate the application from the ORM.
+
+![Backed Layers](https://github.com/bgrou/technical-test/assets/61094081/fa0f4547-1492-4459-89d1-d22a974166f1)
+
+To be continued...
+
+
