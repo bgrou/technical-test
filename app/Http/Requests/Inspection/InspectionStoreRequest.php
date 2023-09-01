@@ -31,7 +31,9 @@ class InspectionStoreRequest extends FormRequest
             'type' => ['required', Rule::in(InspectionTypeEnum::values())],
             'grade' => 'required|digits_between:1,5',
             'date' => 'required|date',
-            'notes' => 'nullable|max:250'
+            'notes' => 'nullable|max:250',
+            'req_maintenance' => 'nullable|max:250'
+
         ];
     }
 }

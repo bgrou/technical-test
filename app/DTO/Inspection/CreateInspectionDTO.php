@@ -14,7 +14,8 @@ class CreateInspectionDTO
         public readonly string $type,
         public readonly string $grade,
         public readonly string $date,
-        public readonly ?string $notes
+        public readonly ?string $notes,
+        public readonly ?string $req_maintenance
     ) {
     }
 
@@ -26,7 +27,8 @@ class CreateInspectionDTO
             $request->type,
             $request->grade,
             $request->date,
-            $request->notes
+            $request->notes,
+            $request->req_maintenance
         );
     }
 }

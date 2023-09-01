@@ -21,6 +21,7 @@ return new class extends Migration
             $table->integer('grade')->default(1);
             $table->dateTime('date');
             $table->string('notes', 250)->nullable();
+            $table->string('req_maintenance', 250)->nullable();
             $table->timestamps();
             $table->softDeletes();
 
