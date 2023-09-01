@@ -99,8 +99,8 @@ I've initially assumed the 4 mentioned components, Blade, Generator, Hub and Rot
 The name of the app will be **WindFlow**. "Wind" is self-explanatory and "Flow" is related to how wind interact with turbines and how smooth the data flows in the app.
 
 ### Logo
-![WindFlow Logo](![image](https://github.com/bgrou/technical-test/assets/61094081/c640a05c-208c-49cd-8883-de304d0e3a93)
-)
+![WindFlow logo](https://github.com/bgrou/technical-test/assets/61094081/bf1ba32a-5c34-4b6b-809d-232209c971e4)
+
 ### Database Design
 As I though before the entities that should exist in this app are **Wind Farms, Turbines, Components, Manufacturers and Inspectors**. 
 After some thinking, I came up with a potential dillema:
