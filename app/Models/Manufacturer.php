@@ -13,7 +13,8 @@ class Manufacturer extends Model
     protected $fillable = [
         'name',
         'phone_number',
-        'address'
+        'address',
+        'email'
     ];
 
     public function components(): HasMany
