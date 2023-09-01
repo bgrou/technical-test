@@ -77,7 +77,9 @@ class ManufacturerController extends Controller
     public function show($id)
     {
         $manufacturer = $this->service->findWithAssociations($id);
-
+        if (!$manufacturer) {
+            return $this->index()->with('error', 'Error showing manufacturer. That manufacturer does not exist.');
+        }
         return Inertia::render('Manufacturer/Show', [
             'manufacturer' => $manufacturer
         ]);
@@ -91,6 +93,9 @@ class ManufacturerController extends Controller
     public function edit($id)
     {
         $manufacturer = $this->service->find($id);
+        if (!$manufacturer) {
+            return $this->index()->with('error', 'Error showing manufacturer. That manufacturer does not exist.');
+        }
         return Inertia::render('Manufacturer/Edit', [
             'manufacturer' => $manufacturer
         ]);
@@ -119,10 +124,16 @@ class ManufacturerController extends Controller
      * Remove the specified resource from storage.
      *
      * @param $id
-     * @return void
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
     {
-        //
+        try {
+            $this->service->delete($id);
+            return Redirect::back()->with('message', 'Manufacturer deleted successfully!');
+        } catch (Exception $e) {
+            Log::error('Error deleting manufacturer: ' . $e->getMessage());
+            return Redirect::back()->with('error', 'There was a problem deleting the manufacturer. Please try again.');
+        }
     }
 }

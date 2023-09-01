@@ -63,6 +63,8 @@ export default function Dashboard(props) {
                 className="bg-primary-mid px-6 py-4 h-[14rem] rounded-lg shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)]">
               <h3 className={'text-m text-gray-400 font-bold mb-2'}>Avg.
                 Produced Power p/Hour</h3>
+              <p className={'text-white text-4xl font-bold'}>
+                350kW <span className={"text-sm"}>(dummy data)</span></p>
             </div>
             <div
                 className={'bg-primary-mid row-span-2 col-span-2 rounded-lg shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)] overflow-hidden hover:overflow-visible'}>

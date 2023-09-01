@@ -26,6 +26,7 @@ use Log;
 class InspectionController extends Controller
 {
     use SoftDeletes;
+
     public function __construct(
         protected InspectionService $service,
         protected GetAllUsersIdAndName $getAllUsersIdAndName
@@ -91,7 +92,9 @@ class InspectionController extends Controller
     public function show($id)
     {
         $inspection = $this->service->findWithAssociations($id);
-
+        if (!$inspection) {
+            return $this->index()->with('error', 'Error showing inspection. That inspection does not exist.');
+        }
         return Inertia::render('Inspection/Show', [
             'inspection' => $inspection
         ]);
@@ -105,7 +108,9 @@ class InspectionController extends Controller
     public function edit($id)
     {
         $inspection = $this->service->find($id);
-
+        if (!$inspection) {
+            return $this->index()->with('error', 'Error showing inspection. That inspection does not exist.');
+        }
         return Inertia::render('Inspection/Edit', [
             'inspection' => $inspection,
             'type_values' => InspectionTypeEnum::values(),
@@ -129,6 +134,17 @@ class InspectionController extends Controller
         } catch (Exception $e) {
             Log::error('Error updating inspection: ' . $e->getMessage());
             return Redirect::back()->with('error', 'There was an error updating the inspection. Please try again.');
+        }
+    }
+
+    public function destroy($id)
+    {
+        try {
+            $this->service->delete($id);
+            return Redirect::back()->with('message', 'Inspection deleted successfully!');
+        } catch (Exception $e) {
+            Log::error('Error deleting inspection: ' . $e->getMessage());
+            return Redirect::back()->with('error', 'There was a problem deleting the inspection. Please try again.');
         }
     }
 }

@@ -64,7 +64,7 @@ class FarmRepository
 
     public function findWithAssociations($id): ?object
     {
-        $farm = $this->farm->with('turbines')->find($id);
+        $farm = $this->farm->with('turbines', 'currentWind')->find($id);
 
         return $farm ? (object)$farm->toArray() : null;
     }

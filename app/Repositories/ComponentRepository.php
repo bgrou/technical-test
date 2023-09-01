@@ -13,18 +13,6 @@ class ComponentRepository
     ) {
     }
 
-    public function getAll(string $filterField = null, string $filterValue = null): array
-    {
-        return $this->component
-            ->where(function ($query) use ($filterField, $filterValue) {
-                if ($filterField) {
-                    $query->where($filterField, 'like', "%{$filterValue}%");
-                }
-            })
-            ->get()
-            ->toArray();
-    }
-
     public function create(CreateComponentDTO $dto): object
     {
         $component = $this->component->create(
@@ -44,9 +32,23 @@ class ComponentRepository
         return (object)$component->toArray();
     }
 
+    public function getAll(string $filterField = null, string $filterValue = null): array
+    {
+        return $this->component
+            ->where(function ($query) use ($filterField, $filterValue) {
+                if ($filterField) {
+                    $query->where($filterField, 'like', "%{$filterValue}%");
+                }
+            })
+            ->get()
+            ->toArray();
+    }
+
     public function update(UpdateComponentDTO $dto): ?object
     {
-        if (!$component = $this->component->find($dto->id)) {
+        $component = $this->component->find($dto->id);
+
+        if (!$component) {
             return null;
         }
 

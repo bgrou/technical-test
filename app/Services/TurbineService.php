@@ -108,4 +108,9 @@ class TurbineService
             "components_low_grade" => $componentsLowGrade
         ];
     }
+
+    public function delete($id): void
+    {
+        $this->repository->delete($id);
+    }
 }

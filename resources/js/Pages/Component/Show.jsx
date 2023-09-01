@@ -38,6 +38,7 @@ export default function Show(props) {
         props.component.latest_inspection.grade :
         0);
 
+
     return (<AuthenticatedLayout
         auth={props.auth}
         errors={props.errors}

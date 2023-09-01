@@ -44,6 +44,7 @@ class FarmController extends Controller
 
         return FarmResource::collection($farms);
     }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -81,6 +82,9 @@ class FarmController extends Controller
     public function show($id)
     {
         $farm = $this->service->findWithAssociations($id);
+        if (!$farm) {
+            return $this->index()->with('error', 'Error showing farm. That farm does not exist.');
+        }
         $turbinesNeedingAttention = $this->service->getTurbinesLowGradeComponents($id);
         return Inertia::render('Farm/Show', [
             'farm' => $farm,
@@ -97,7 +101,9 @@ class FarmController extends Controller
     public function edit($id)
     {
         $farm = $this->service->find($id);
-
+        if (!$farm) {
+            return $this->index()->with('error', 'Error editing farm. That farm does not exist.');
+        }
         return Inertia::render('Farm/Edit', [
             'farm' => $farm
         ]);
@@ -116,7 +122,8 @@ class FarmController extends Controller
             return Redirect::route('farm.show', ['id' => $updatedFarm->id])
                 ->with('message', 'Farm updated successfully!');
         } catch (Exception $e) {
-            return Redirect::back()->with('error', $e->getMessage());
+            Log::error('Error updating farm: ' . $e->getMessage());
+            return Redirect::back()->with('error', 'There was a problem updating the farm. Please try again.');
         }
     }
 
@@ -124,10 +131,16 @@ class FarmController extends Controller
      * Remove the specified resource from storage.
      *
      * @param Farm $farm
-     * @return Response
+     * @return RedirectResponse
      */
-    public function destroy(Farm $farm)
+    public function destroy($id)
     {
-        //
+        try {
+            $this->service->delete($id);
+            return Redirect::back()->with('message', 'Farm deleted successfully!');
+        } catch (Exception $e) {
+            Log::error('Error deleting farm: ' . $e->getMessage());
+            return Redirect::back()->with('error', 'There was a problem deleting the farm. Please try again.');
+        }
     }
 }

@@ -20,6 +20,7 @@ use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Inertia\Response;
+use Log;
 
 class TurbineController extends Controller
 {
@@ -73,6 +74,7 @@ class TurbineController extends Controller
             return Redirect::route('turbine.show', ['id' => $createdTurbine->id])
                 ->with('message', 'Turbine created successfully!');
         } catch (Exception $e) {
+            Log::error('Error creating turbine: ' . $e->getMessage());
             return Redirect::back()->with('error', $e->getMessage());
         }
     }
@@ -86,6 +88,9 @@ class TurbineController extends Controller
     public function show($id)
     {
         $turbine = $this->service->findWithAssociations($id);
+        if (!$turbine) {
+            return $this->index()->with('error', 'Error showing turbine. That turbine does not exist.');
+        }
         $componentTypes = ComponentTypeEnum::values();
         $componentsLowGrade = $this->service->getComponentsLowGrade($id);
         return Inertia::render('Turbine/Show', [
@@ -103,6 +108,9 @@ class TurbineController extends Controller
     public function edit($id)
     {
         $turbine = $this->service->find($id);
+        if (!$turbine) {
+            return $this->index()->with('error', 'Error showing turbine. That turbine does not exist.');
+        }
         return Inertia::render('Turbine/Edit', [
             'turbine' => $turbine,
             'farms_list' => $this->getAllFarmsWithIdAndName->execute(),
@@ -125,6 +133,7 @@ class TurbineController extends Controller
             return Redirect::route('turbine.show', ['id' => $createdTurbine->id])
                 ->with('message', 'Turbine updated successfully!');
         } catch (Exception $e) {
+            Log::error('Error updating turbine: ' . $e->getMessage());
             return Redirect::back()->with('error', $e->getMessage());
         }
     }
@@ -133,10 +142,16 @@ class TurbineController extends Controller
      * Remove the specified resource from storage.
      *
      * @param $id
-     * @return void
+     * @return RedirectResponse
      */
     public function destroy($id)
     {
-        //
+        try {
+            $this->service->delete($id);
+            return Redirect::back()->with('message', 'Turbine deleted successfully!');
+        } catch (Exception $e) {
+            Log::error('Error deleting turbine: ' . $e->getMessage());
+            return Redirect::back()->with('error', 'There was a problem deleting the turbine. Please try again.');
+        }
     }
 }

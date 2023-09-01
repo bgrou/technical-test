@@ -17,11 +17,17 @@ class InspectionService
 {
     public function __construct(
         protected InspectionRepository $repository
-    ) {}
+    ) {
+    }
 
     public function create(CreateInspectionDTO $dto)
     {
         return $this->repository->create($dto);
+    }
+
+    public function getAll(string $filterField = null, string $filterValue = null): array
+    {
+        return $this->repository->getAll($filterField, $filterValue);
     }
 
     public function fetchIndex(Request $request, Inspection $inspection): AnonymousResourceCollection
@@ -40,6 +46,11 @@ class InspectionService
     public function find($id): ?object
     {
         return $this->repository->find($id);
+    }
+
+    public function delete($id): void
+    {
+        $this->repository->delete($id);
     }
 
     public function findWithAssociations($id): ?object

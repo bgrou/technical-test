@@ -32,6 +32,11 @@ class FarmService
         return $this->repository->update($dto);
     }
 
+    public function getAll(string $filterField = null, string $filterValue = null): array
+    {
+        return $this->repository->getAll($filterField, $filterValue);
+    }
+
     public function fetchIndex(Request $request, Farm $farm): AnonymousResourceCollection
     {
         $allowedFields = ['id', 'name', 'latitude', 'longitude'];
@@ -75,8 +80,8 @@ class FarmService
         ];
     }
 
-    public function getAll(): array
+    public function delete($id): void
     {
-        return $this->repository->getAll();
+        $this->repository->delete($id);
     }
 }

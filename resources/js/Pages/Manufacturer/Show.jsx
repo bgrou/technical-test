@@ -1,8 +1,10 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import {Head, Link} from '@inertiajs/react';
 import React from "react";
+import ReactMapGl from 'react-map-gl';
 
 export default function Show(props) {
+
 
     return (
         <AuthenticatedLayout
@@ -12,6 +14,7 @@ export default function Show(props) {
                         <div className={"inline-flex space-x-8"}>
                             <h2>Manufacturer #{props.manufacturer.id}</h2>
                             <Link href={`/manufacturer/edit/${props.manufacturer.id}`}><i className="fa fa-edit text-2xl" style={{color:"#d5d7dd"}}></i></Link>
+
                         </div>
                     }
         >
@@ -44,7 +47,17 @@ export default function Show(props) {
                                 </p>
                             </div>
                             <div className={"bg-primary-mid col-span-2 row-span-2 h-[28rem] rounded-lg shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)] overflow-hidden hover:overflow-visible"}>
-                                MAP
+                                <ReactMapGl
+                                    mapLib={import('mapbox-gl')}
+                                    mapboxAccessToken={props.mapbox_api_token}
+                                    initialViewState={{
+                                        longitude: 49.5,
+                                        latitude: -4.00,
+                                        zoom: 5,
+                                    }}
+                                    mapStyle={'mapbox://styles/brunog/cllm8sr3w013701qparz97s1z'}
+                                >
+                                </ReactMapGl>
                             </div>
 
                             <div className={"bg-primary-mid px-6 py-4 row-span-2 rounded-lg shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)] overflow-hidden hover:overflow-visible"}>

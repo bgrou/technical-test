@@ -64,7 +64,7 @@ class ComponentController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
+     * @param ComponentStoreRequest $request
      * @return RedirectResponse
      */
     public function store(ComponentStoreRequest $request)
@@ -90,7 +90,9 @@ class ComponentController extends Controller
     public function show($id)
     {
         $component = $this->service->findWithAssociations($id);
-
+        if (!$component) {
+            return $this->index()->with('error', 'Error showing component. That component does not exist.');
+        }
         return Inertia::render('Component/Show', [
             'component' => $component
         ]);
@@ -105,6 +107,9 @@ class ComponentController extends Controller
     public function edit($id)
     {
         $component = $this->service->find($id);
+        if (!$component) {
+            return $this->index()->with('error', 'Error showing component. That component does not exist.');
+        }
         return Inertia::render('Component/Edit', [
             'component' => $component,
             'type_values' => ComponentTypeEnum::values(),
@@ -124,7 +129,7 @@ class ComponentController extends Controller
         try {
             $updatedComponent = $this->service->update(UpdateComponentDTO::makeFromRequest($request));
             if (!$updatedComponent) {
-                throw new NotFoundResourceException("Component with not found");
+                throw new NotFoundResourceException("Component not found");
             }
             return Redirect::route('turbine.show', ['id' => $updatedComponent->turbine_id])
                 ->with('message', 'Component updated successfully!');
@@ -155,7 +160,11 @@ class ComponentController extends Controller
                 return Redirect::route('component.index')->with('message', 'Component deleted successfully!');
             }
         } catch (Exception $e) {
-            return Redirect::back()->with('error', 'Error deleting component: ' . $e->getMessage());
+            Log::error('Error deleting component: ' . $e->getMessage());
+            return Redirect::back()->with(
+                'error',
+                'There was an error deleting the component. Please try again later.'
+            );
         }
     }
 }

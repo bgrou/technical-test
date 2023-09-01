@@ -22,6 +22,11 @@ class ManufacturerService
         return $this->repository->create($dto);
     }
 
+    public function getAll(string $filterField = null, string $filterValue = null): array
+    {
+        return $this->repository->getAll($filterField, $filterValue);
+    }
+
     public function fetchIndex(Request $request, Manufacturer $manufacturer): AnonymousResourceCollection
     {
         $allowedFields = ['name', 'phone_number', 'email', 'address'];
@@ -43,5 +48,10 @@ class ManufacturerService
     public function findWithAssociations($id): ?object
     {
         return $this->repository->findWithAssociations($id);
+    }
+
+    public function delete($id): void
+    {
+        $this->repository->delete($id);
     }
 }

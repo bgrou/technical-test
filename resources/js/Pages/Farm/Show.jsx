@@ -7,6 +7,8 @@ import TurbineSvg from '@/Components/TurbineSvg';
 
 export default function Show(props) {
 
+
+    console.log(props.farm);
     return (<AuthenticatedLayout
         auth={props.auth}
         errors={props.errors}
@@ -52,12 +54,12 @@ export default function Show(props) {
                             <h3 className={'text-m text-gray-400 font-bold mb-2'}>Avg.
                                 Generated Power per Hour</h3>
                             <p className={'text-4xl text-gray-200 font font-bold mb-6'}>
-                                {props.farm.turbines.length}
+                                50 kW<span className={"text-sm"}>(dummy data)</span>
                             </p>
                             <h3 className={'text-m text-gray-400 font-bold mb-2'}>Current
                                 Wind Speed</h3>
                             <p className={'text-4xl text-gray-200 font font-bold mb-6'}>
-                                {props.farm.turbines.length}
+                                {props.farm.current_wind.wind_speed} m/s<span className={"text-sm"}>(dummy data)</span>
                             </p>
 
                         </div>

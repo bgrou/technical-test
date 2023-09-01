@@ -31,6 +31,11 @@ class ComponentService
         }
     }
 
+    public function getAll(string $filterField = null, string $filterValue = null): array
+    {
+        return $this->repository->getAll($filterField, $filterValue);
+    }
+
     public function fetchIndex(Request $request, Component $component): AnonymousResourceCollection
     {
         $allowedFields = ['id', 'type', 'turbine_id', 'manufacturer_id', 'serial_number'];
