@@ -117,7 +117,6 @@ I decided to use [Inertia.js](https://inertiajs.com) so I can achieve the perfor
 
 I decided to use a Controller->Service->Repository design pattern due to its separation of concerns. Repository might sound overkill and that I added unnecessary complexity, but I prefer to isolate the application from the ORM.
 
-![Backed Layers](https://github.com/bgrou/technical-test/assets/61094081/fa0f4547-1492-4459-89d1-d22a974166f1)
 
 To be continued...
 
