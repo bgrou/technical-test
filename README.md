@@ -78,7 +78,8 @@ I've initially assumed the 4 mentioned components, Blade, Generator, Hub and Rot
 - **Wind Farms**: Entities that store multiple turbines.
 - **Turbines**: Entities inside farms. A turbine has multiple components inside.
 - **Components**: Entities that compose a turbine. Each of them has a grade assigned in the last inspection made to the component.
-- **Manufacturers**: Entities that produce the components and assemble the turbines. Not in the task description but I thought it would be a great addition. 
+- **Manufacturers**: Entities that produce the components and assemble the turbines. Not in the task description but I thought it would be a great addition.
+- **Inspections**: Entities conducted on the components. It contains the grade assigned to the component at the moment of the inspection, the date and the required maintenance. 
 - **Inspectors**: Entities that make inspections in the components. Also not in the task description.
 
 ### Users should be able to...
@@ -112,12 +113,23 @@ Well, I decided to put custom fields aside so the database design remains simpli
 I decided that inspections should be made to single component so each of the components can have a super detailed and precise inspection. Also decided that the inspectors could actually be the users of the app itself(I thought about creating an inspectors table).
 
 ### Backend
-It might sound controversial but I chose to follow a monolith architecture due to its simplicity and ease of development. If it was a production app it tons of users and data we could have to move to a decoupled architecture.
+It might sound controversial but I chose to follow a monolith architecture due to its simplicity and ease of development. If it was a production app with tons of users and data we could have to move to a decoupled architecture.
 I decided to use [Inertia.js](https://inertiajs.com) so I can achieve the performance and smooth UX of a SPA while developing in Laravel with a monolith architecture.
 
-I decided to use a Controller->Service->Repository design pattern due to its separation of concerns. Repository might sound overkill and that I added unnecessary complexity, but I prefer to isolate the application from the ORM.
+I used a Controller->Service->Repository design pattern due to its separation of concerns. Repository might sound overkill and that I added unnecessary complexity, but I prefer to isolate the application from the ORM.
+![Backend Design](https://github.com/bgrou/technical-test/assets/61094081/b99b6cad-e263-4b6d-9d4d-d4278f7c1c22)
 
+**Each layer responsibilities**
+- Controller: Handle incoming requests, exception handling, generate DTOs and routing;
+- Service: Business logic;
+- Repository: Query logic and provides aditional abstraction layer;
+- Model: Relationship management.
 
+**Each object responsibilities**
+- DTO: Carries data between layers and ensure the data standardization;
+- FormRequest: Data validation with defined rules.
+
+  
 To be continued...
 
 
