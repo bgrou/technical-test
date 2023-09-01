@@ -5,6 +5,7 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import {Marker, Popup} from 'react-map-gl';
 import TurbineSvg from '@/Components/TurbineSvg';
 import {Link} from '@inertiajs/react';
+import DateConverter from '@/Components/DateConverter';
 
 export default function Dashboard(props) {
   const [selectedFarm, setSelectedFarm] = useState(null);
@@ -104,14 +105,64 @@ export default function Dashboard(props) {
 
             </div>
             <div
-                className={'bg-primary-mid px-6 h-[14rem] py-4 rounded-lg shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)] overflow-hidden hover:overflow-visible'}>
+                className={'bg-primary-mid px-6 h-[14rem] py-4 rounded-lg shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)] overflow-y-scroll scrollbar'}>
               <h3 className={'text-m text-gray-400 font-bold mb-2'}>Top
                 Farms Produced Energy p/Hour</h3>
+                <div>
+                  <table className={'w-full'}>
+                    <thead
+                        className={'text-left text-gray-400'}>
+                    <tr>
+                      <th>Farm</th>
+                      <th>Power Gen</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr className={'odd:bg-primary-light text-gray-300 py-6'}>
+                          <td className={'p-2'}><Link
+                              href={'/farm/1'}>Lorem</Link>
+                          </td>
+                          <td><Link href={'/farm/1'}>6 kW</Link>
+                          </td>
+                        </tr>
+                        <tr className={'odd:bg-primary-light text-gray-300 py-6'}>
+                          <td className={'p-2'}><Link
+                              href={'/farm/1'}>Lorem</Link>
+                          </td>
+                          <td><Link href={'/farm/1'}>6 kW</Link>
+                          </td>
+                        </tr>
+                        <tr className={'odd:bg-primary-light text-gray-300 py-6'}>
+                          <td className={'p-2'}><Link
+                              href={'/farm/1'}>Lorem</Link>
+                          </td>
+                          <td><Link href={'/farm/1'}>6 kW</Link>
+                          </td>
+                        </tr>
+                        <tr className={'odd:bg-primary-light text-gray-300 py-6'}>
+                          <td className={'p-2'}><Link
+                              href={'/farm/1'}>Lorem</Link>
+                          </td>
+                          <td><Link href={'/farm/1'}>6 kW</Link>
+                          </td>
+                        </tr>
+                        <tr className={'odd:bg-primary-light text-gray-300 py-6'}>
+                          <td className={'p-2'}><Link
+                              href={'/farm/1'}>Lorem</Link>
+                          </td>
+                          <td><Link href={'/farm/1'}>6 kW</Link>
+                          </td>
+                        </tr>
+                    </tbody>
+                  </table>
+                </div>
+
             </div>
             <div
                 className={'bg-primary-mid px-6 py-4 h-[14rem] rounded-lg shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)] overflow-hidden hover:overflow-visible'}>
-              <h3 className={'text-m text-gray-400 font-bold mb-2'}></h3>
-
+              <h3 className={'text-m text-gray-400 font-bold mb-2'}>Number of Farms</h3>
+              <p className={'text-white text-8xl font-bold'}>
+                {props.farms.length}</p>
             </div>
 
           </div>
