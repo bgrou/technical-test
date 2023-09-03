@@ -181,7 +181,8 @@ Due to time constraints I had to forgo important elements that I would definetil
 - **Interfaces Implementation**: It's crucial to implement interfaces, particularly in repositories, to ensure correct repository use;
 - **React Componentization**: The componentization of my ReactJS code would improve code reusability and readability;
 - **Git Branching**: I did used feature branches for each new functionality, which would have been crucial, specially in a collaborative team environment.
-- **Standalone API with Authentication**: I would create a standalone API, complete with authentication mechanisms. This would have facilitated data sharing with external partners and created foundation for a potential transition to a decoupled frontend architecture.
+- **Standalone API with Authentication**: I would create a standalone API, complete with authentication mechanisms. This would have facilitated data sharing with external partners and created foundation for a potential transition to a decoupled architecture.
+- **Microservices instead of Monolith**: Without thinking twice, I would've employed Microservices architecture to achieve full eficciency and scalability potential.
 
 
 # 4. Installing
