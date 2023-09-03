@@ -102,7 +102,7 @@ The name of the app will be **WindFlow**. "Wind" is self-explanatory and "Flow" 
 ### Logo
 ![WindFlow logo](https://github.com/bgrou/technical-test/assets/61094081/bf1ba32a-5c34-4b6b-809d-232209c971e4)
 
-### Database Design
+## Database Design
 As I though before the entities that should exist in this app are **Wind Farms, Turbines, Components, Manufacturers and Inspectors**. 
 After some thinking, I came up with a potential dillema:
 -  Should I create a table for each component type so I can have their singular attributes separated? Should I follow single table inheritance? Or the JSON path for singular attributes(not a good idea)?
@@ -112,7 +112,7 @@ Well, I decided to put custom fields aside so the database design remains simpli
 
 I decided that inspections should be made to single component so each of the components can have a super detailed and precise inspection. Also decided that the inspectors could actually be the users of the app itself(I thought about creating an inspectors table).
 
-### Backend
+## Backend
 It might sound controversial but I chose to follow a monolith architecture due to its simplicity and ease of development. If it was a production app with tons of users and data we could have to move to a decoupled architecture.
 I decided to use [Inertia.js](https://inertiajs.com) so I can achieve the performance and smooth UX of a SPA while developing in Laravel with a monolith architecture.
 
@@ -129,7 +129,96 @@ I used a Controller->Service->Repository design pattern due to its separation of
 - DTO: Carries data between layers and ensure the data standardization;
 - FormRequest: Data validation with defined rules.
 
+
+## Frontend
+Since [Inertia supports Vue and React, I resolved to use React as my frontend framework. I made some sketch designs in Figma before I started developing -> [Figma Designs]([https://inertiajs.com](https://www.figma.com/file/v4CMADAriq7IVcGqel0RYK/Untitled?type=design&node-id=1%3A3&mode=design&t=TQzhDZ6thrSAyJNk-1)https://www.figma.com/file/v4CMADAriq7IVcGqel0RYK/Untitled?type=design&node-id=1%3A3&mode=design&t=TQzhDZ6thrSAyJNk-1)
+
+![image](https://github.com/bgrou/technical-test/assets/61094081/775560f6-8f39-4855-992b-05042b128ced)
+![image](https://github.com/bgrou/technical-test/assets/61094081/3f0998f9-c778-460a-a8b0-42d0dd7d5d69)
+![image](https://github.com/bgrou/technical-test/assets/61094081/89108344-66ea-4f47-8ad7-f7dc9cb64247)
+![image](https://github.com/bgrou/technical-test/assets/61094081/f2da7050-2a25-4eb8-ab52-bc68157af59e)
+![image](https://github.com/bgrou/technical-test/assets/61094081/af4801ff-f4d3-463c-804d-96afb98ddc1f)
+
+The final version ended up being different and optimized. I focused in bringing a simple, modern and easy to learn platform.
+
+
+## API
+Inertia is intended to build single-page apps without building an API. Trying to implement an API in the same environment is not an easy task since Inertia changes Laravel configs to force it to respond to requests in a Inertia Response.
+The API would have to be standalone.
+
+
+## Planned Features
+- Consume [Windy API]([https://inertiajs.com](https://api.windy.com/point-forecast)https://api.windy.com/point-forecast) to access wind speed data at the locations of wind farms, which is essential for calculating the power generation capacity of each turbine.
+- Use [MapBox](https://www.mapbox.com/) to visualize maps displaying wind farms and their respective wind turbines. The map should include a polygon outlining the wind farm's geographical area and individual points marking the precise locations of the wind turbines. Additionally, consider implementing a layer to illustrate wind patterns and their corresponding speeds for enhanced visualization.
+
+
+# 3. Implementation
+I utilized [Laravel Shift](https://laravelshift.com/convert-laravel-mix-to-vite) to migrate from Laravel Mix to Vite, so I can achieve faster development, improved build times, and enhanced support for modern JavaScript.
+
+## Packages used
+### Laravel
+- Breezy: Quickly set up authentication features;
+- InertiaJS: Powering the frontend.
+
+### Node Modules
+- font-awesome: Used to acquire icons;
+- react-map-gl: A wrapper for integrating maps;
+- react-toastify: Used for displaying toast notifications, including flash messages.
+- react-datepicker: Added for selecting dates from a calendar.
+
+## Probable problems of this app implementation and how to solve them
+- Huge data, specially in inspections table: To handle this we should use data archiving and table partitioning.
+- Scalability problems due to monolith architecture: We would need to move to a decoupled architecture to improve scalability.
+- API dependant: Since we would rely on APIs like Windy, if the API brokes we would need to move to another API provider, so we need to keep our code reusable
   
-To be continued...
+## Missing features and things I should've done
+Due to time constraints I had to forgo important elements that I would definetily incorporate in normal circunstances:
+- **Windy API Integration**: Unfortunately, I couldn't implement the integration of the Windy API as planned, which would have provided essential wind speed data for precise power generation calculations. The data would've been fetched every x hours through cron jobs and stored in this database's table: ![image](https://github.com/bgrou/technical-test/assets/61094081/44a17910-b380-467c-af63-e20553f61d93);
+- **Map Wind Layer**: The addition of the wind layer on the map remained unfinished, which would have enhanced the visualization of wind patterns and speeds;
+- **Testing Strategies**: I regret not having enough time to set up unit and end-to-end testing, which are crucial elements for improving development practices and ensuring the reliability of CI/CD pipelines. I intended to use PHPUnit for this purpose;
+- **Role Management**: To improve data privacy and access control, I had intended to incorporate role management using [Spatie's Laravel-Permissions](https://github.com/spatie/laravel-permission);
+- **User Administration**: The implementation of user management, allowing administrators to control users and their roles, unfortunately, remained unimplemented;
+- **Interfaces Implementation**: It's crucial to implement interfaces, particularly in repositories, to ensure correct repository use;
+- **React Componentization**: The componentization of my ReactJS code would improve code reusability and readability;
+- **Git Branching**: I did used feature branches for each new functionality, which would have been crucial, specially in a collaborative team environment.
+- **Standalone API with Authentication**: I would create a standalone API, complete with authentication mechanisms. This would have facilitated data sharing with external partners and created foundation for a potential transition to a decoupled frontend architecture.
 
 
+# 4. Installing
+**Please make sure that your Docker is running properly**
+```bash
+sudo apt update -y && sudo apt upgrade -y
+
+sudo apt install php
+
+git clone https://github.com/bgrou/technical-test.git
+
+cd path/to/folder
+
+docker run --rm \
+-u "$(id -u):$(id -g)" \
+-v $(pwd):/var/www/html \
+-w /var/www/html \
+laravelsail/php81-composer:latest \
+composer install --ignore-platform-reqs
+
+./vendor/bin/sail up -d
+
+./vendor/bin/sail composer install
+
+./vendor/bin/sail npm install --force (Some dependencies conflicts in vite versions);
+
+./vendor/bin/sail npm run dev
+
+./vendor/bin/sail artisan migrate
+
+./vendor/bin/sail artisan db:seed
+```
+
+# 5. Conclusion
+Thank you for the opportunity to show you my skills and expertise. 
+I'm very excited about the possibility of working together!
+Hope you like it.
+
+Best regards,
+Bruno Grou
